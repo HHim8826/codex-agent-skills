@@ -1,0 +1,6 @@
+interface:
+  display_name: "Entropy GC"
+  short_description: "Reduce repo drift with small cleanup loops"
+  default_prompt: >-
+    Use $entropy-gc to audit repo entropy, rank drift by risk, and plan a small
+    targeted cleanup slice with validation and guardrails.

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Harness Engineering"
+  short_description: "Build agent-ready project harnesses"
+  default_prompt: >-
+    Use $harness-engineering to plan an agent-readable workflow with docs, app
+    evidence, TDD, review loops, handoff, validation, and mandatory Git
+    finalization for every repo-writing task. For a zero-start project, run the
+    built-in one-question-at-a-time planning interview before implementation.
+    Report the new commit hash or the exact attempted commit blocker before
+    finishing.
