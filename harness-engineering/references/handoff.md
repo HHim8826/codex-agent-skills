@@ -31,6 +31,31 @@ If no handoff is written, the final response must make it clear that no
 non-obvious continuation state remains. Do not create empty handoff files just
 to satisfy the catalog.
 
+## Context reset
+
+For long-running work, a fresh agent plus a structured handoff can be safer
+than continuing in a saturated context. Use a context reset when the current
+agent starts wrapping up early, losing coherence, repeatedly restating the
+plan, or working from stale assumptions because the useful context is buried.
+
+Prefer compaction when the same agent still has a coherent working set and can
+continue without losing task intent. Prefer a reset when compaction would keep
+too much stale history or when the next step benefits from a clean read of the
+repo, current plan, validation state, and blockers.
+
+A reset handoff must include:
+
+- Current goal and non-goals.
+- Completed slices and remaining slices.
+- Current branch, last commit, push status, and dirty state.
+- Validation already run and validation still needed.
+- Runtime state, URLs, seed data, logs, metrics, traces, or browser evidence.
+- Known blockers, risky assumptions, and the next concrete command or file to
+  inspect.
+
+Do not use reset as a way to hide unfinished work. Commit the last coherent
+GREEN slice first when the Git checkpoint rules allow it.
+
 ## Default location
 
 Use the repo convention if it exists. Otherwise use:

@@ -9,6 +9,7 @@ REQUIRED_TEXT = {
     "SKILL.md": (
         "description: >-",
         "agent/app readability",
+        "long-running coding sessions",
         "sub-agent review",
         "validation, handoff",
         "## Mandatory Git finalization",
@@ -24,6 +25,10 @@ REQUIRED_TEXT = {
         "## Mandatory recoverability check",
         "Load `references/handoff.md` and create or update the handoff",
         "If no handoff is written",
+        "testable contract",
+        "context pressure",
+        "Stress-test harness complexity over time",
+        "model upgrade, or harness cost review",
     ),
     "references/zero-to-harness.md": (
         "## Built-in planning interview",
@@ -44,6 +49,9 @@ REQUIRED_TEXT = {
         "commit was actually attempted and failed",
         "Run the review loop for every non-trivial change",
         "Record whether independent review was required",
+        "For a non-trivial slice, write a sprint contract before coding",
+        "## Sprint contract",
+        "Do not start a non-trivial slice until its sprint contract",
         "## Recoverability check",
     ),
     "references/quality-gates.md": (
@@ -66,6 +74,9 @@ REQUIRED_TEXT = {
         "mandatory review gates",
         "recoverability checks",
         "Report independent review status",
+        "sprint contracts",
+        "evaluator calibration",
+        "load-bearing harness review",
     ),
     "references/planning-output-contract.md": (
         "## Artifact trigger rubric",
@@ -80,12 +91,27 @@ REQUIRED_TEXT = {
         "Use a sub-agent or review tool when policy and permissions allow",
         "The exact reason independent review was skipped or unavailable",
         "Which self-review passes were run instead",
+        "## Evaluator calibration",
+        "not automatically skeptical",
+        "tune the review rubric",
+        "product depth",
     ),
     "references/handoff.md": (
         "## Recoverability check",
         "Load this reference and create or update a short handoff",
         "If no handoff is written",
         "Do not create empty handoff files just to satisfy the catalog",
+        "## Context reset",
+        "fresh agent plus a structured handoff",
+        "Prefer compaction",
+        "Do not use reset as a way to hide unfinished work",
+    ),
+    "references/maintenance.md": (
+        "## Load-bearing harness review",
+        "Every harness component encodes an assumption",
+        "Review components one at a time",
+        "Do not remove multiple components at once",
+        "model's reliable capability",
     ),
 }
 

@@ -80,6 +80,33 @@ Use a separate sub-agent or review tool for the focused passes when the policy
 above calls for independent review. If not available, run the same passes
 yourself and say that no independent reviewer was available.
 
+## Evaluator calibration
+
+An independent reviewer is not automatically skeptical. Reviewers can approve
+shallow testing, praise generic output, or talk themselves out of real bugs.
+When that happens, tune the review rubric before trusting future passes.
+
+Calibrate the evaluator by:
+
+- Reading review logs or comments for missed bugs, weak approvals, or vague
+  praise.
+- Turning subjective standards into concrete criteria and hard thresholds.
+- Requiring the reviewer to exercise the running app, API, data state, or logs
+  when runtime behavior matters.
+- Adding edge cases that the reviewer skipped.
+- Feeding corrected examples back into the review prompt, checklist, docs, or
+  validation script.
+
+For UI and product-quality work, grade functionality and craft, but also grade
+whether the output has product depth and avoids generic default patterns. For
+software correctness work, prefer criteria that can fail the change: missing
+core interactions, stub-only behavior, untested data mutations, broken API
+routes, hidden state mismatch, or shallow happy-path testing.
+
+If a reviewer repeatedly approves work that later fails validation or human
+review, treat that as a harness bug. Fix the rubric, prompt, test, script, or
+runtime evidence requirement before relying on the same reviewer again.
+
 ## Prompt hygiene
 
 Do not contaminate the independent review with the main agent's conclusion.

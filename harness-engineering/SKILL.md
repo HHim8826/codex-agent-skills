@@ -3,8 +3,9 @@ name: harness-engineering
 description: >-
   Use when starting or maintaining an agent-first software project, planning
   feature or bugfix work, or adding guardrails for TDD, docs, agent/app
-  readability, worktrees, git checkpoints, sub-agent review, PR feedback,
-  validation, handoff, commit, or push workflows.
+  readability, long-running coding sessions, worktrees, git checkpoints,
+  sub-agent review, PR feedback, validation, handoff, commit, or push
+  workflows.
 ---
 
 # Harness Engineering
@@ -101,7 +102,8 @@ when their gates apply.
 | Feature, bugfix, harness, skill, workflow, PR feedback, or second-agent verification | `references/review-loop.md` |
 | Any task may write repo files, or commit, push, branch, checkpoint, or worktree safety matters | `references/git-checkpoints.md` |
 | Recoverability, blocker, continuation state, or session handoff is needed | `references/handoff.md` |
-| Post-launch upkeep, drift, quality debt | `references/maintenance.md` |
+| Long-running work hits context pressure, compaction, reset, or continuation risk | `references/handoff.md` |
+| Post-launch upkeep, drift, quality debt, model upgrade, or harness cost review | `references/maintenance.md` |
 | Defining "done", PR checks, CI gates | `references/quality-gates.md` |
 
 If multiple situations apply, prefer this order and stop as soon as the loaded
@@ -126,6 +128,9 @@ recoverability check says useful state would otherwise be lost.
   from version-controlled artifacts.
 - Build vertical slices. Do not ask agents to build a whole product in one
   prompt.
+- For long-running work, keep each slice anchored by a testable contract and a
+  recoverable handoff. Reset context with a structured handoff when context
+  pressure makes the agent wrap up early or lose coherence.
 - During planning, do not stop at a chat-only plan unless the user explicitly
   asks for discussion only. Persist the right planning artifact or handoff.
 - For feature work and bug fixes, use the built-in TDD gate before
@@ -153,6 +158,9 @@ recoverability check says useful state would otherwise be lost.
   app instance details should be inspectable without relying on human QA.
 - Convert every repeated mistake into a stronger harness: better docs, a test,
   a script, a check, or a clearer boundary.
+- Stress-test harness complexity over time. Each harness component encodes an
+  assumption about what the current model cannot do reliably; re-check those
+  assumptions after model upgrades, high-cost runs, or repeated workflow drag.
 
 ## Default project artifacts
 
@@ -199,6 +207,8 @@ smallest useful subset and expand when the work exposes a real need.
   documents, or people's heads.
 - Letting feature work begin before setup, validation, and local run commands
   are discoverable.
+- Letting a long-running agent drift, wrap up early, or continue after context
+  loss without a structured handoff.
 - Treating UI, logs, metrics, or traces as human-only surfaces instead of
   agent-readable evidence.
 - Asking agents to infer architecture from scattered files instead of writing
@@ -207,6 +217,9 @@ smallest useful subset and expand when the work exposes a real need.
   bug to survive.
 - Treating review as a one-time comment pass instead of a feedback loop that
   ends with evidence, fixes, or documented blockers.
+- Trusting a reviewer that only praises the work. Evaluator prompts and rubrics
+  need calibration when they miss real bugs, accept shallow testing, or approve
+  generic output.
 - Treating sub-agent review as optional for non-trivial harness, workflow,
   architecture, or user-visible changes without recording why independent
   review was unavailable.
@@ -220,6 +233,8 @@ smallest useful subset and expand when the work exposes a real need.
   RED state.
 - Claiming completion while task-owned changes remain uncommitted, or calling
   an unattempted commit a blocker.
+- Keeping planner, sprint, evaluator, or reset machinery after it stops adding
+  measurable lift for the current model and project.
 
 ## Skill maintenance validation
 

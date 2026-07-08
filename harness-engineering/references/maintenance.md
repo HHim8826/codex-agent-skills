@@ -15,6 +15,34 @@ maintenance routing; let `$entropy-gc` own the garbage-collection loop.
 4. Turn recurring issues into harness improvements.
 5. Update the quality score and docs.
 
+## Load-bearing harness review
+
+Every harness component encodes an assumption about what the current model
+cannot do reliably alone. Re-examine those assumptions when a model changes,
+the harness becomes expensive or slow, workflow overhead rises, or a component
+has unclear value.
+
+Review components one at a time:
+
+- Planner or spec-expansion step.
+- Sprint decomposition.
+- Independent evaluator or QA loop.
+- Context reset or compaction strategy.
+- Runtime/browser/log inspection tooling.
+- Extra docs, scripts, checks, or generated artifacts.
+
+For each component, record:
+
+- What failure mode it is meant to prevent.
+- Evidence that the failure still happens without it.
+- Cost in time, tokens, maintenance, and cognitive overhead.
+- Whether removal, simplification, or stricter tuning improves outcomes.
+
+Do not remove multiple components at once unless the workflow is already
+broken. Compare against realistic tasks, not toy prompts. Keep components that
+show measurable lift at the edge of the model's reliable capability; remove or
+simplify components that only add ritual.
+
 ## Drift signals
 
 Look for:
@@ -31,6 +59,10 @@ Look for:
 - Runtime behavior that cannot be inspected through UI, logs, metrics, traces,
   or reproducible seed data.
 - Review comments that repeat across PRs.
+- Harness steps that are slow, expensive, or repeatedly skipped because their
+  value is unclear.
+- Model upgrades that make old decomposition, reset, or evaluator assumptions
+  stale.
 
 ## Documentation gardening
 

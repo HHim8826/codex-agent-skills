@@ -9,17 +9,18 @@ Use this reference when adding a new feature to an agent-ready project.
 2. Write or update the feature brief.
 3. Create an execution plan for anything larger than a small direct edit.
 4. Check whether the feature needs new harness support.
-5. Use `references/tdd-integration.md` to choose the first observable behavior
+5. For a non-trivial slice, write a sprint contract before coding.
+6. Use `references/tdd-integration.md` to choose the first observable behavior
    and write the first failing test.
-6. Implement the smallest vertical slice.
-7. Verify with tests and runtime inspection.
-8. Commit the coherent GREEN slice.
-9. Run the review loop for every non-trivial change.
-10. Load `references/quality-gates.md`, capture reusable learning, rerun the
+7. Implement the smallest vertical slice.
+8. Verify with tests and runtime inspection.
+9. Commit the coherent GREEN slice.
+10. Run the review loop for every non-trivial change.
+11. Load `references/quality-gates.md`, capture reusable learning, rerun the
     relevant validation, and commit review fixes.
-11. Run the recoverability check and update the handoff when useful state would
+12. Run the recoverability check and update the handoff when useful state would
     otherwise remain only in chat or local runtime state.
-12. Inspect Git again and report the commit hash and push result, or the exact
+13. Inspect Git again and report the commit hash and push result, or the exact
     attempted blocker.
 
 ## Feature brief
@@ -75,9 +76,31 @@ Before implementation, ask whether this feature needs:
 
 If yes, add the harness support as part of the feature slice.
 
+## Sprint contract
+
+Before coding a non-trivial slice, write a short contract that bridges the
+feature brief and implementation. The contract must make "done" testable
+without over-specifying internal implementation.
+
+Record the contract in the active plan, feature brief, or handoff. Include:
+
+- Slice goal and non-goals.
+- User-visible behavior or public interface.
+- Acceptance criteria and failure states.
+- First RED behavior or test.
+- Runtime, browser, API, data, or log evidence required.
+- Review criteria and known edge cases.
+
+When independent review is available, have the reviewer check the contract
+before implementation. Iterate until the implementing agent and reviewer agree
+on what will be built and how it will be verified. If no reviewer is available,
+run the same check yourself and record the limitation.
+
 ## Implementation rules
 
 - Build one vertical slice at a time.
+- Do not start a non-trivial slice until its sprint contract is concrete enough
+  to verify.
 - Do not write implementation code before the first RED step unless the user
   explicitly opts out. Use `references/tdd-integration.md` as the built-in TDD
   gate.
