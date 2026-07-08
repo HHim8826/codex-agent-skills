@@ -9,6 +9,10 @@ Review is a loop, not a checkbox. The work is not ready until important review
 findings are fixed, converted into harness improvements, or recorded as explicit
 blockers.
 
+For non-trivial work, independent review is part of the completion gate, not a
+best-effort extra. If independent review cannot be used, the limitation must be
+explicit and the main agent must compensate with focused self-review.
+
 Independent review improves signal, but it does not replace evidence. Accuracy
 comes from a clear rubric, raw artifacts, validation commands, and a documented
 decision for each finding.
@@ -24,13 +28,14 @@ Use the review loop for:
 - Harness changes that alter how future agents work.
 
 Skip it only for tiny, mechanical edits where validation and diff inspection
-fully prove the change.
+fully prove the change. Record the skip reason before finalization.
 
-## Sub-agent policy
+## Independent review requirement
 
-Prefer sub-agent review for non-trivial changes. Require it for high-risk
-changes. Skip it only when the change is trivial or no independent reviewer is
-available.
+Use a sub-agent or review tool when policy and permissions allow. Require
+independent review for non-trivial changes and high-risk changes. Skip it only
+when the change is trivial, policy forbids spawning a reviewer, or no
+independent reviewer is available.
 
 Use sub-agent or independent reviewer review for:
 
@@ -53,6 +58,13 @@ Sub-agent review is optional for:
 If sub-agent review is required but unavailable, record that as a review
 limitation and compensate with narrower scope, stronger validation, or an
 explicit blocker.
+
+The record must include:
+
+- Whether independent review was required.
+- Whether a sub-agent or review tool was used.
+- The exact reason independent review was skipped or unavailable.
+- Which self-review passes were run instead.
 
 ## Local review passes
 

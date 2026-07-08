@@ -14,10 +14,12 @@ Use this reference when adding a new feature to an agent-ready project.
 6. Implement the smallest vertical slice.
 7. Verify with tests and runtime inspection.
 8. Commit the coherent GREEN slice.
-9. Run the review loop for non-trivial changes.
+9. Run the review loop for every non-trivial change.
 10. Load `references/quality-gates.md`, capture reusable learning, rerun the
     relevant validation, and commit review fixes.
-11. Inspect Git again and report the commit hash and push result, or the exact
+11. Run the recoverability check and update the handoff when useful state would
+    otherwise remain only in chat or local runtime state.
+12. Inspect Git again and report the commit hash and push result, or the exact
     attempted blocker.
 
 ## Feature brief
@@ -106,7 +108,15 @@ actually attempted and failed.
 
 For non-trivial feature work, load `references/review-loop.md` after local
 validation. Use it to check spec compliance, harness quality, and architecture
-drift, then rerun the relevant validation after review fixes.
+drift, then rerun the relevant validation after review fixes. Record whether
+independent review was required, used, skipped, or unavailable.
+
+## Recoverability check
+
+Before finalization, load `references/handoff.md` when continuation state,
+blockers, skipped validation or review, runtime evidence, or push state would
+otherwise be lost. If no handoff is written, make sure no non-obvious
+continuation state remains.
 
 ## Merge learning capture
 

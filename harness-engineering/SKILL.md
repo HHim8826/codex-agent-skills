@@ -1,6 +1,10 @@
 ---
 name: harness-engineering
-description: Use when starting or maintaining an agent-first software project, planning feature or bugfix work, or adding guardrails for TDD, docs, agent/appreadability, worktrees, git checkpoints, review, PR feedback, validation,handoff, commit, or push workflows.
+description: >-
+  Use when starting or maintaining an agent-first software project, planning
+  feature or bugfix work, or adding guardrails for TDD, docs, agent/app
+  readability, worktrees, git checkpoints, sub-agent review, PR feedback,
+  validation, handoff, commit, or push workflows.
 ---
 
 # Harness Engineering
@@ -49,11 +53,41 @@ state what the answer unlocks. Do not begin implementation until the interview
 exit criteria are met and the user approves the finalized plan. The user can
 explicitly skip the interview.
 
+## Mandatory review gate
+
+For feature, bugfix, harness, skill, agent workflow, architecture, data,
+security, reliability, migration, CI, validation, or user-visible behavior
+changes, load `references/review-loop.md` before finalization. This requirement
+is additive and overrides the progressive-disclosure stop rule below.
+
+Run or attempt independent review for non-trivial changes and for any workflow
+change that future agents will copy. Use an available sub-agent or review tool
+when policy and permissions allow. If independent review cannot be used, record
+the exact limitation in the handoff or final response, then run the spec,
+harness, and architecture self-review passes from `references/review-loop.md`.
+
+Do not call the task complete until important review findings are fixed,
+converted into harness improvements, or recorded as explicit blockers.
+
+## Mandatory recoverability check
+
+Before the final response, decide whether the next agent can recover the task
+from committed code, durable docs, and the final response alone. Load
+`references/handoff.md` and create or update the handoff when useful state
+would otherwise stay only in chat or local runtime state.
+
+Create or update a handoff when work may continue later, blockers or known
+failures remain, validation or runtime evidence is not obvious from committed
+artifacts, commit/push/review was skipped or blocked, or the next step depends
+on transient state. If no handoff is written, the final response must make it
+clear that no non-obvious continuation state remains.
+
 ## Choose the workflow
 
 Read only the workflow reference that matches the current task. Load one
 workflow reference first and another only when the task explicitly needs it.
-The mandatory Git reference above remains required for every repo-writing task.
+The mandatory Git, review, and recoverability references above remain required
+when their gates apply.
 
 | Situation | Read |
 | --- | --- |
@@ -64,9 +98,9 @@ The mandatory Git reference above remains required for every repo-writing task.
 | Planning must produce repo artifacts | `references/planning-output-contract.md` |
 | Building a new feature | `references/feature-development.md` |
 | Feature or bugfix implementation needs test-first discipline | `references/tdd-integration.md` |
-| Review, PR feedback, or second-agent verification matters | `references/review-loop.md` |
+| Feature, bugfix, harness, skill, workflow, PR feedback, or second-agent verification | `references/review-loop.md` |
 | Any task may write repo files, or commit, push, branch, checkpoint, or worktree safety matters | `references/git-checkpoints.md` |
-| Short context handoff is needed between sessions | `references/handoff.md` |
+| Recoverability, blocker, continuation state, or session handoff is needed | `references/handoff.md` |
 | Post-launch upkeep, drift, quality debt | `references/maintenance.md` |
 | Defining "done", PR checks, CI gates | `references/quality-gates.md` |
 
@@ -77,7 +111,9 @@ references are sufficient:
 `tdd-integration.md`, `review-loop.md`, `git-checkpoints.md`,
 `quality-gates.md`, `handoff.md`, `maintenance.md`.
 
-Do not use this stop rule to skip `git-checkpoints.md` for a repo-writing task.
+Do not use this stop rule to skip `git-checkpoints.md` for a repo-writing task,
+`review-loop.md` when the review gate applies, or `handoff.md` when the
+recoverability check says useful state would otherwise be lost.
 
 ## Operating principles
 
@@ -105,7 +141,12 @@ Do not use this stop rule to skip `git-checkpoints.md` for a repo-writing task.
 - Enforce invariants with tests, lint, scripts, architecture checks, and CI.
   Do not rely on repeated human review comments for recurring rules.
 - For non-trivial changes, close the loop with spec, harness, and architecture
-  review before final handoff or PR completion.
+  review before final handoff or PR completion. Use independent review when
+  policy and permissions allow; otherwise document the limitation and run the
+  focused self-review passes.
+- At task boundaries, run the recoverability check. Write a short handoff when
+  state, blockers, validation evidence, runtime details, or next steps would
+  otherwise live only in the chat.
 - Give agents runtime visibility: local app commands, browser verification,
   logs, metrics, traces, seed data, and reproducible bug reports.
 - Make runtime surfaces Codex-readable. UI state, logs, metrics, traces, and
@@ -166,8 +207,13 @@ smallest useful subset and expand when the work exposes a real need.
   bug to survive.
 - Treating review as a one-time comment pass instead of a feedback loop that
   ends with evidence, fixes, or documented blockers.
+- Treating sub-agent review as optional for non-trivial harness, workflow,
+  architecture, or user-visible changes without recording why independent
+  review was unavailable.
 - Recording every task in durable docs. Every task needs recoverability; only
   durable knowledge belongs in long-lived project documentation.
+- Skipping the handoff decision because the work feels finished. Either create
+  or update the handoff, or make sure no non-obvious continuation state remains.
 - Refusing to push only because the current branch is `main` or `master` when
   the user or project policy expects direct pushes. Still do not push from
   detached HEAD, an unknown upstream, unrelated dirty state, or a half-finished
@@ -177,6 +223,9 @@ smallest useful subset and expand when the work exposes a real need.
 
 ## Skill maintenance validation
 
-After editing this skill, run
-`python scripts/check_workflow_contract.py` from the skill directory, followed
-by the standard skill structure validator.
+After editing this skill, run these commands from the skill directory:
+
+```text
+python scripts/check_workflow_contract.py
+python -c "from pathlib import Path; import ast; ast.parse(Path('scripts/check_workflow_contract.py').read_text())"
+```

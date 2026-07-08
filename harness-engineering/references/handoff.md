@@ -8,9 +8,28 @@ agent. This is especially useful when conversations end every few tasks.
 Every task needs recoverability. Only durable knowledge needs formal
 documentation.
 
-Write a short handoff at task boundaries when there is useful state that is not
-obvious from committed docs and code. Keep it short enough for the next agent to
-read immediately.
+Before finalizing, run a recoverability check: can the next agent continue from
+committed code, durable docs, and the final response alone?
+
+Load this reference and create or update a short handoff when useful state is
+not obvious from committed docs and code. Keep it short enough for the next
+agent to read immediately.
+
+## Recoverability check
+
+Create or update the handoff when any trigger is true:
+
+- Work is incomplete, paused, or likely to continue in another session.
+- A blocker, known failure, skipped validation, or skipped review remains.
+- Runtime state, app URL, seed data, logs, metrics, traces, screenshots, or
+  browser evidence matters for continuation.
+- A commit or push was expected but blocked.
+- The next step depends on local context that is not in committed docs or code.
+- The user asked for a handoff or another agent will take over.
+
+If no handoff is written, the final response must make it clear that no
+non-obvious continuation state remains. Do not create empty handoff files just
+to satisfy the catalog.
 
 ## Default location
 

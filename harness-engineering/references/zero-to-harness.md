@@ -93,6 +93,10 @@ Add these artifacts when the project has the matching need:
 - `scripts/check-architecture`: import, layer, or dependency rules need
   enforcement.
 
+When adding any optional artifact, follow the artifact trigger rubric in
+`references/planning-output-contract.md`. Do not create placeholder files whose
+only content is the catalog entry.
+
 ## AGENTS.md shape
 
 Keep `AGENTS.md` small enough to scan in one minute:

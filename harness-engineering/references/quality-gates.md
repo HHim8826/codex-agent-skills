@@ -18,6 +18,8 @@ A feature is not done until the project can show evidence for these claims:
 - Review findings are resolved, converted into harness improvements, or
   recorded as blockers.
 - Known risks and rollback notes are recorded for risky changes.
+- Recoverability is handled by a short handoff or by an explicit statement that
+  no non-obvious continuation state remains.
 - Task-owned changes are committed unless the user explicitly requested no
   commit, or an attempted commit failed with an exact recorded blocker.
 - The final response reports the new commit hash and push result, or accurately
@@ -117,10 +119,18 @@ For non-trivial changes, run `references/review-loop.md` before final handoff or
 PR completion. At minimum, record:
 
 - Review passes performed.
+- Whether independent review was required, used, skipped, or unavailable.
 - Findings fixed.
 - Harness improvements added.
 - Findings deferred, rejected, or blocked, with reasons.
 - Validation rerun after review fixes.
+
+## Recoverability gate
+
+Before final response, run the handoff decision in `references/handoff.md`.
+Create or update the handoff when continuation state would otherwise live only
+in chat, local runtime state, or unpushed Git state. If no handoff is written,
+record that no non-obvious continuation state remains.
 
 ## Runtime evidence
 

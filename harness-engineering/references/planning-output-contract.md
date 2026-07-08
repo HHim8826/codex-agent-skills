@@ -19,6 +19,29 @@ Use the smallest artifact that preserves recoverability:
 | Quality, reliability, or validation gap found | Update `docs/QUALITY_SCORE.md` or equivalent |
 | User explicitly requested discussion only | No file write; say no artifact was written |
 
+## Artifact trigger rubric
+
+Create optional artifacts only when they have a clear trigger and a useful
+first version. Before creating one, answer:
+
+- What future agent decision or validation step fails without this artifact?
+- Which source, code path, command, or runtime evidence supports the first
+  content?
+- Which workflow will update it next?
+
+The first version must include:
+
+- Purpose: why the artifact exists.
+- Current facts: the smallest useful facts or rules known now.
+- Evidence: the source, command, code path, or runtime observation behind the
+  facts.
+- Update trigger: when future agents must edit it.
+- Open gaps: what is intentionally unknown or deferred.
+
+Do not create empty placeholder artifacts. If the trigger is real but the
+content is not yet known, create a short handoff entry instead and record what
+must be inspected before the durable artifact exists.
+
 ## After a planning interview
 
 For a zero-start project, follow the built-in interview in
