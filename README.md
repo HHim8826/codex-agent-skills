@@ -36,20 +36,23 @@ The skill provides workflows and reference material for these areas:
 - **App readability:** Make local URLs, worktree instances, seed data, UI
   state, logs, metrics, traces, and diagnostics inspectable by an agent.
 - **Feature development:** Define a short feature brief, split work into
-  vertical slices, check required harness support, and update durable docs with
-  behavior changes.
+  vertical slices, write sprint contracts for non-trivial slices, check
+  required harness support, and update durable docs with behavior changes.
 - **Test-driven development:** Select one observable behavior, write one
   failing test, implement the smallest passing behavior, and repeat.
 - **Quality gates:** Define stable validation commands and require evidence for
   behavior, architecture, tests, runtime state, documentation, and risk.
 - **Review loops:** Run focused specification, harness, and architecture review
-  passes, then turn recurring feedback into tests, scripts, or rules.
+  passes, calibrate evaluators that approve weak work, then turn recurring
+  feedback into tests, scripts, or rules.
 - **Git checkpoints:** Record the starting state, commit coherent green slices,
   protect worktree boundaries, push when required, and report exact blockers.
 - **Session handoffs:** Preserve only the current state, decisions, Git
   checkpoint, runtime evidence, blockers, and next action needed to resume.
+  Use structured reset handoffs when long-running work hits context pressure.
 - **Maintenance:** Detect stale documentation, architecture drift, weak
-  observability, missing runtime evidence, and repeated review findings.
+  observability, missing runtime evidence, repeated review findings, and
+  harness components that no longer add measurable lift.
 
 ### Workflow
 
@@ -60,12 +63,14 @@ A typical feature or repository-improvement workflow follows these steps:
    feature development, app readability, or maintenance.
 3. Resolve any plan-critical decisions and persist the smallest useful brief or
    execution plan.
-4. Choose one observable behavior and complete a red-green-refactor vertical
+4. For non-trivial slices, write a sprint contract that makes done testable.
+5. Choose one observable behavior and complete a red-green-refactor vertical
    slice.
-5. Validate tests, architecture, documentation, and runtime behavior with
+6. Validate tests, architecture, documentation, and runtime behavior with
    reproducible evidence.
-6. Review specification compliance, harness quality, and architecture drift.
-7. Commit the coherent result, push when the workflow requires it, and leave a
+7. Review specification compliance, harness quality, architecture drift, and
+   reviewer quality.
+8. Commit the coherent result, push when the workflow requires it, and leave a
    concise handoff only when work remains.
 
 ### Examples
